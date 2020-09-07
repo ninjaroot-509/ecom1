@@ -1,0 +1,342 @@
+{% extends 'commerce/base.html' %}
+{% block titled %}Lohimarket | Blog{% endblock titled %}
+{% load static %}
+
+{% block content %}
+
+<!-- ================ start banner area ================= -->	
+  <section class="blog-banner-area" id="blog">
+    <div class="container h-100">
+      <div class="blog-banner">
+        <div class="text-center">
+          <h1>Lohimarket | Nos Actualités</h1>
+          <nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Acceuil</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Blog</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ================ end banner area ================= -->
+
+
+  <!--================Blog Categorie Area =================-->
+  <section class="blog_categorie_area">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
+            <div class="categories_post">
+                <img class="card-img rounded-0" src="{% static 'commerce/img/blog/cat-post/cat-post-3.jpg' %}" alt="post">
+                <div class="categories_details">
+                    <div class="categories_text">
+                        <a href="#">
+                            <h5>Vie sociale</h5>
+                        </a>
+                        <div class="border_line"></div>
+                        <p>Profitez de votre vie sociale ensemble</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
+          <div class="categories_post">
+            <img class="card-img rounded-0" src="{% static 'commerce/img/blog/cat-post/cat-post-2.jpg' %}" alt="post">
+            <div class="categories_details">
+              <div class="categories_text">
+                <a href="#">
+                    <h5>Politique</h5>
+                </a>
+                <div class="border_line"></div>
+                <p>Faites partie de la politique</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
+            <div class="categories_post">
+                <img class="card-img rounded-0" src="{% static 'commerce/img/blog/cat-post/cat-post-1.jpg' %}" alt="post">
+                <div class="categories_details">
+                    <div class="categories_text">
+                        <a href="#">
+                            <h5>Nourriture</h5>
+                        </a>
+                        <div class="border_line"></div>
+                        <p>Que la nourriture soit infinie</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--================Blog Categorie Area =================-->
+
+  <!--================Blog Area =================-->
+  <section class="blog_area">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-8">
+                  <div class="blog_left_sidebar">
+                       {% if posts %}
+                    {% for post in posts %}
+                      <article class="row blog_item">
+                          <div class="col-md-3">
+                              <div class="blog_info text-right">
+                                  <div class="post_tag">
+                                      <a href="#">Food,</a>
+                                      <a class="active" href="#">Technology,</a>
+                                      <a href="#">Politics,</a>
+                                      <a href="#">Lifestyle</a>
+                                  </div>
+                                  <ul class="blog_meta list">
+                                      <li>
+                                          <a href="#">{{ post.author }}
+                                              <i class="lnr lnr-user"></i>
+                                          </a>
+                                      </li>
+                                      <li>
+                                          <a href="#">{{ post.created_on|timesince }}
+                                              <i class="lnr lnr-calendar-full"></i>
+                                          </a>
+                                      </li>
+                                      <li>
+                                          <a href="#">1.2M Views
+                                              <i class="lnr lnr-eye"></i>
+                                          </a>
+                                      </li>
+                                      <li>
+                                          <a href="{{ post.get_absolute_url }}">{{ post.comments.count }} Comment(s)
+                                              <i class="lnr lnr-bubble"></i>
+                                          </a>
+                                      </li>
+                                  </ul>
+                              </div>
+                          </div>
+                          <div class="col-md-9">
+                              <div class="blog_post">
+                                  <a href="{{ post.get_absolute_url }}"><img src="{{ post.post_logo.url }}" alt=""></a>
+                                  <div class="blog_details">
+                                      <a href="{{ post.get_absolute_url }}">
+                                          <h2>{{ post.title }}</h2>
+                                      </a>
+                                      <p>{{ post.content|truncatewords:15|linebreaks }}</p>
+                                      <a class="button button-blog" href="{{ post.get_absolute_url }}">Lire Plus</a>
+                                  </div>
+                              </div>
+                          </div>
+                      </article>
+                      {% endfor %}
+                      
+
+                      
+                      <nav class="blog-pagination justify-content-center d-flex">
+                          <ul class="pagination">
+                            {% if posts.has_previous %}
+                              <li class="page-item">
+                                  <a href="?page={{ posts.previous_page_number }}" class="page-link" aria-label="Previous">
+                                      <span aria-hidden="true">
+                                          <span class="lnr lnr-chevron-left"></span>
+                                      </span>
+                                  </a>
+                              </li>
+                              {% endif %}
+
+                              {% for pg in posts.paginator.page_range %}
+
+                               {% if posts.number == pg %}
+                              <li class="page-item active">
+                                <a href="?page={{ pg }}" class="page-link"><span>{{ pg }}</span>
+                                </a>
+                              </li>
+                              {% else %}
+                              <li class="page-item">
+                                <a href="?page={{ pg }}" class="page-link">{{ pg }}</a>
+                              </li>
+                              {% endif %}
+                              {% endfor %}
+
+                              {% if posts.has_next %}
+                              <li class="page-item">
+                                  <a href="?page={{ posts.next_page_number }}" class="page-link" aria-label="Next">
+                                      <span aria-hidden="true">
+                                          <span class="lnr lnr-chevron-right"></span>
+                                      </span>
+                                  </a>
+                              </li>
+                              {% endif %}
+                          </ul>
+                      </nav>
+       
+                      {% else %}
+                      <div class="alert-danger">
+                        <p style="text-align: center;">No post disponible</p>
+                      </div>
+                      {% endif %}
+                  </div>
+              </div>
+              <div class="col-lg-4">
+                  <div class="blog_right_sidebar">
+                      <aside class="single_sidebar_widget search_widget">
+                          <div class="input-group">
+                              <input type="text" class="form-control" placeholder="Search Posts">
+                              <span class="input-group-btn">
+                                  <button class="btn btn-default" type="button">
+                                      <i class="lnr lnr-magnifier"></i>
+                                  </button>
+                              </span>
+                          </div>
+                          <!-- /input-group -->
+                          <div class="br"></div>
+                      </aside>
+                      <aside class="single_sidebar_widget author_widget">
+                         
+                          <p>Les camps d'entraînement ont ses partisans et ses détracteurs. Certaines personnes ne comprennent pas pourquoi vous devriez
+                              doivent dépenser de l'argent sur le camp d'entraînement quand vous pouvez obtenir. Les camps d'entraînement ont leur soutien et leurs
+                              détracteurs.
+                          </p>
+                          <div class="br"></div>
+                      </aside>
+                      <aside class="single_sidebar_widget ads_widget">
+                          <a href="#">
+                              <img class="img-fluid" src="{% static 'commerce/img/blog/add.jpg' %}" alt="">
+                          </a>
+                          <div class="br"></div>
+                      </aside>
+                      <aside class="single_sidebar_widget post_category_widget">
+                          <h4 class="widget_title">Post Catgories</h4>
+                          <ul class="list cat-list">
+                              <li>
+                                  <a href="#" class="d-flex justify-content-between">
+                                      <p>Technology</p>
+                                      <p>37</p>
+                                  </a>
+                              </li>
+                              <li>
+                                  <a href="#" class="d-flex justify-content-between">
+                                      <p>Lifestyle</p>
+                                      <p>24</p>
+                                  </a>
+                              </li>
+                              <li>
+                                  <a href="#" class="d-flex justify-content-between">
+                                      <p>Fashion</p>
+                                      <p>59</p>
+                                  </a>
+                              </li>
+                              <li>
+                                  <a href="#" class="d-flex justify-content-between">
+                                      <p>Art</p>
+                                      <p>29</p>
+                                  </a>
+                              </li>
+                              <li>
+                                  <a href="#" class="d-flex justify-content-between">
+                                      <p>Food</p>
+                                      <p>15</p>
+                                  </a>
+                              </li>
+                              <li>
+                                  <a href="#" class="d-flex justify-content-between">
+                                      <p>Architecture</p>
+                                      <p>09</p>
+                                  </a>
+                              </li>
+                              <li>
+                                  <a href="#" class="d-flex justify-content-between">
+                                      <p>Adventure</p>
+                                      <p>44</p>
+                                  </a>
+                              </li>
+                          </ul>
+                          <div class="br"></div>
+                      </aside>
+                      <aside class="single-sidebar-widget newsletter_widget">
+                          <h4 class="widget_title">Newsletter</h4>
+                          <p>
+                              Ici, je me concentre sur une gamme d'articles et de fonctionnalités que nous utilisons dans la vie sans y réfléchir.
+                          </p>
+                          <div class="form-group d-flex flex-row">
+                              <div class="input-group">
+                                  <div class="input-group-prepend">
+                                      <div class="input-group-text">
+                                          <i class="fa fa-envelope" aria-hidden="true"></i>
+                                      </div>
+                                  </div>
+                                  <input type="email" class="form-control" id="inlineFormInputGroup" placeholder="Entrez votre addresse email" onfocus="this.placeholder = ''"
+                                      onblur="this.placeholder = 'Enter email'">
+                              </div>
+                              <a href="#" class="bbtns">Subcribe</a>
+                          </div>
+                          <p class="text-bottom">Vous pouvez vous désabonner à tout moment</p>
+                          <div class="br"></div>
+                      </aside>
+                      <aside class="single-sidebar-widget tag_cloud_widget">
+                          <h4 class="widget_title">Tag Clouds</h4>
+                          <ul class="list">
+                              <li>
+                                  <a href="#">Technology</a>
+                              </li>
+                              <li>
+                                  <a href="#">Fashion</a>
+                              </li>
+                              <li>
+                                  <a href="#">Architecture</a>
+                              </li>
+                              <li>
+                                  <a href="#">Fashion</a>
+                              </li>
+                              <li>
+                                  <a href="#">Food</a>
+                              </li>
+                              <li>
+                                  <a href="#">Technology</a>
+                              </li>
+                              <li>
+                                  <a href="#">Lifestyle</a>
+                              </li>
+                              <li>
+                                  <a href="#">Art</a>
+                              </li>
+                              <li>
+                                  <a href="#">Adventure</a>
+                              </li>
+                              <li>
+                                  <a href="#">Food</a>
+                              </li>
+                              <li>
+                                  <a href="#">Lifestyle</a>
+                              </li>
+                              <li>
+                                  <a href="#">Adventure</a>
+                              </li>
+                          </ul>
+                      </aside>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  <!--================Blog Area =================-->
+
+  <!--================Instagram Area =================-->
+  <section class="instagram_area">
+    <div class="container box_1620">
+      <div class="insta_btn">
+        <a class="btn theme_btn" href="#">Suivez nous sur instagram</a>
+      </div>
+      <div class="instagram_image row m0">
+        <a href="#"><img src="{% static 'commerce/img/instagram/ins-1.jpg' %}" alt=""></a>
+        <a href="#"><img src="{% static 'commerce/img/instagram/ins-2.jpg' %}" alt=""></a>
+        <a href="#"><img src="{% static 'commerce/img/instagram/ins-3.jpg' %}" alt=""></a>
+        <a href="#"><img src="{% static 'commerce/img/instagram/ins-4.jpg' %}" alt=""></a>
+        <a href="#"><img src="{% static 'commerce/img/instagram/ins-5.jpg' %}" alt=""></a>
+        <a href="#"><img src="{% static 'commerce/img/instagram/ins-6.jpg' %}" alt=""></a>
+      </div>
+    </div>
+  </section>
+  <!--================End Instagram Area =================-->
+
+{% endblock content %}

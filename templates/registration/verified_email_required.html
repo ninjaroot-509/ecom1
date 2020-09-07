@@ -1,0 +1,23 @@
+{% extends "commerce/base.html" %}
+
+{% load i18n %}
+
+{% block  titled %}{% trans "Vérifiez votre adresse e-mail" %}{% endblock titled %}
+
+{% block content %}
+<h1>{% trans "Vérifiez votre adresse e-mail" %}</h1>
+
+{% url 'account_email' as email_url %}
+
+<p>{% blocktrans %}Cette partie du site nous oblige à vérifier que
+vous êtes ce que vous prétendez être. A cet effet, nous vous demandons
+vérifiez la propriété de votre adresse e-mail.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}Nous vous avons envoyé un e-mail pour
+vérification. Veuillez cliquer sur le lien à l'intérieur de cet e-mail. S'il vous plaît
+contactez-nous si vous ne le recevez pas dans quelques minutes.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}<strong>Note:</strong> tu peux encore <a href="{{ email_url }}">Changé ton adresse e-mail</a>.{% endblocktrans %}</p>
+
+
+{% endblock %}

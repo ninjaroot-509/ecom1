@@ -1,0 +1,97 @@
+{% extends 'commerce/base.html' %}
+{% block titled %}Erreur-404{% endblock titled %}
+{% load static %}
+
+{% block content %}
+
+<!-- ================ start banner area ================= --> 
+  <section class="blog-banner-area" id="blog">
+    <div class="container h-100">
+      <div class="blog-banner">
+        <div class="text-center">
+          <h1>Lohimarket</h1>
+          <nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Acceuil</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Erreur 404</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ================ end banner area ================= -->
+
+
+  <!--================Blog Categorie Area =================-->
+  <section class="blog_categorie_area">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
+            <div class="categories_post">
+                <img class="card-img rounded-0" src="{% static 'commerce/img/blog/cat-post/cat-post-3.jpg' %}" alt="post">
+                <div class="categories_details">
+                    <div class="categories_text">
+                        <a href="#">
+                            <h5>Vie sociale</h5>
+                        </a>
+                        <div class="border_line"></div>
+                        <p>Profitez de votre vie sociale ensemble</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
+          <div class="categories_post">
+            <img class="card-img rounded-0" src="{% static 'commerce/img/blog/cat-post/cat-post-2.jpg' %}" alt="post">
+            <div class="categories_details">
+              <div class="categories_text">
+                <a href="#">
+                    <h5>Politique</h5>
+                </a>
+                <div class="border_line"></div>
+                <p>Faites partie de la politique</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
+            <div class="categories_post">
+                <img class="card-img rounded-0" src="{% static 'commerce/img/blog/cat-post/cat-post-1.jpg' %}" alt="post">
+                <div class="categories_details">
+                    <div class="categories_text">
+                        <a href="#">
+                            <h5>Nourriture</h5>
+                        </a>
+                        <div class="border_line"></div>
+                        <p>Que la nourriture soit infinie</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--================Blog Categorie Area =================-->
+
+
+
+  <!--================Instagram Area =================-->
+  <section class="instagram_area">
+    <div class="container box_1620">
+      <div class="insta_btn">
+        <a class="btn theme_btn" href="#">Suivez nous sur instagram</a>
+      </div>
+      <div class="instagram_image row m0">
+        <a href="#"><img src="{% static 'commerce/img/instagram/ins-1.jpg' %}" alt=""></a>
+        <a href="#"><img src="{% static 'commerce/img/instagram/ins-2.jpg' %}" alt=""></a>
+        <a href="#"><img src="{% static 'commerce/img/instagram/ins-3.jpg' %}" alt=""></a>
+        <a href="#"><img src="{% static 'commerce/img/instagram/ins-4.jpg' %}" alt=""></a>
+        <a href="#"><img src="{% static 'commerce/img/instagram/ins-5.jpg' %}" alt=""></a>
+        <a href="#"><img src="{% static 'commerce/img/instagram/ins-6.jpg' %}" alt=""></a>
+      </div>
+    </div>
+  </section>
+  <!--================End Instagram Area =================-->
+
+{% endblock content %}

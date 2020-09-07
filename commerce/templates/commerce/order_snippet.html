@@ -1,0 +1,20 @@
+<div class="col-lg-4">
+  <div class="order_box">
+      <h2>Votre panier</h2>
+      <ul class="list">
+          <li><a href="#"><h4>Produit(s) <span>Total</span></h4></a></li>
+          <hr>
+          {% for order_item in order.items.all %}
+          <li><a href="#">{{ order_item.item.title }} <span class="middle">x{{ order_item.quantity }}</span> <span class="last">${{ order_item.get_final_price }}</span></a></li>
+          <hr>
+          {% endfor %}
+      </ul>
+      <ul class="list list_2">
+        {% if order.coupon %}
+          <li><a href="#">Subtotal <span>{{order.coupon.code}}</span></a></li>
+          <li><a href="#">Frais de <span>livraison forfaitaires: {{order.coupon.amount}}</span></a></li>
+          {% endif %}
+          <li><a href="#">Total <span>${{ order.get_total }}</span></a></li>
+      </ul>
+  </div>
+</div>

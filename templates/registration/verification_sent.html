@@ -1,0 +1,12 @@
+{% extends "commerce/base.html" %}
+
+{% load i18n %}
+
+{% block  titled %}{% trans "Vérifiez votre adresse e-mail" %}{% endblock titled %}
+
+{% block content %}
+    <h1>{% trans "Vérifiez votre adresse e-mail" %}</h1>
+
+    <p>{% blocktrans %}Nous vous avons envoyé un e-mail pour vérification. Suivez le lien fourni pour finaliser le processus d'inscription. Veuillez nous contacter si vous ne le recevez pas dans quelques minutes.{% endblocktrans %}</p>
+
+{% endblock %}

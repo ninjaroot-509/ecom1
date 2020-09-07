@@ -1,0 +1,126 @@
+{% extends 'commerce/base.html' %}
+{% block titled %}Lohimarket | Mes commandes{% endblock titled %}
+{% load static %}
+
+{% block content %}
+	<!-- ================ start banner area ================= -->	
+	<section class="blog-banner-area" id="category">
+		<div class="container h-100">
+			<div class="blog-banner">
+				<div class="text-center">
+					<h1>Lohimarket | Mes commandes</h1>
+					<nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Acceuil</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Mes commandes</li>
+            </ol>
+          </nav>
+				</div>
+			</div>
+    </div>
+	</section>
+	<!-- ================ end banner area ================= -->
+  
+  <!--================Order Details Area =================-->
+  {% if orders %}
+  <section class="order_details section-margin--small">
+    <div class="container">
+      {% for order in orders %}
+       <h3>{{ forloop.counter }} achat(s)</h3>
+      
+      <div class="row mb-5">
+        <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
+          <div class="confirmation-card">
+            <h3 class="billing-title">Produit(s) Info</h3>
+            <table class="order-rable">
+              <tr>
+                <td>n* produit(s)</td>
+                <td>: {{order.ref_code}}</td>
+              </tr>
+              <tr>
+                <td>Acheter le</td>
+                <td>: {{ order.start_date }}</td>
+              </tr>
+              <tr>
+                <td>Prix total</td>
+                <td>: ${{ order.get_total }}</td>
+              </tr>
+              <tr>
+                <td>Client</td>
+                <td>: {{order.payment}}</td>
+              </tr>
+              <tr>
+                <td>Livraison</td>
+                <td>:{% if order.received %}<p style="color: blue">produit(s) Reçu(e)</p>{% else %}<p style="color: red">livraison en attente!</p>{% endif %}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
+          <div class="confirmation-card">
+            <h3 class="billing-title">Billing Address</h3>
+            <table class="order-rable">
+              <tr>
+                <td>Quartier</td>
+                <td>: {{ order.billing_address.street_address }}</td>
+              </tr>
+              <tr>
+                <td>Apartement</td>
+                <td>{{ order.billing_address.apartment_address }}</td>
+              </tr>
+              <tr>
+                <td>Ville</td>
+                <td>: {{ order.billing_address.ville }}</td>
+              </tr>
+              <tr>
+                <td>Pays</td>
+                <td>: {{ order.billing_address.get_country_display }}</td>
+              </tr>
+              <tr>
+                <td>Code postal</td>
+                <td>: {{ order.billing_address.zip }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
+          <div class="confirmation-card">
+            <h3 class="billing-title">Shipping Address</h3>
+            <table class="order-rable">
+              <tr>
+                <td>Quartier</td>
+                <td>: {{ order.shipping_address.street_address }}</td>
+              </tr>
+              <tr>
+                <td>Apartement</td>
+                <td>{{ order.billing_address.apartment_address }}</td>
+              </tr>
+              <tr>
+                <td>Ville</td>
+                <td>: {{ order.shipping_address.ville }}</td>
+              </tr>
+              <tr>
+                <td>Pays</td>
+                <td>: {{ order.shipping_address.get_country_display }}</td>
+              </tr>
+              <tr>
+                <td>Code postal</td>
+                <td>: {{ order.shipping_address.zip }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      <hr>
+
+    </div>
+  </section>
+  {% else %}
+      <div class="alert alert-info"><i class="fa fa-lg fa-info-circle pull-left"></i> Vous n'avez pas encore commandé sur notre site.</div>
+              {% endif %}
+  <!--================End Order Details Area =================-->
+
+
+
+  {% endblock content %}

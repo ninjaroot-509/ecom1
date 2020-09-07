@@ -1,0 +1,208 @@
+{% extends 'commerce/base.html' %}
+{% block titled %}Lohimarket | Shop{% endblock titled %}
+{% load static %}
+{% block content %}
+	<!--================ End Header Menu Area =================-->
+
+	<!-- ================ start banner area ================= -->	
+	<section class="blog-banner-area" id="category">
+		<div class="container h-100">
+			<div class="blog-banner">
+				<div class="text-center">
+					<h1>Lohimarket | Shop</h1>
+					<nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Acceuil</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Shop</li>
+            </ol>
+          </nav>
+				</div>
+			</div>
+    </div>
+	</section>
+	<!-- ================ end banner area ================= -->
+
+
+	<!-- ================ category section start ================= -->		  
+  <section class="section-margin--small mb-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-3 col-lg-4 col-md-5">
+          <div class="sidebar-categories">
+            <div class="head">Divers Categories</div>
+            <ul class="main-categories">
+              <li class="common-filter">
+                <form action="#">
+                  <ul>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="men" name="brand"><label for="men">Men<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="women" name="brand"><label for="women">Women<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="accessories" name="brand"><label for="accessories">Accessories<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="footwear" name="brand"><label for="footwear">Footwear<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="bayItem" name="brand"><label for="bayItem">Bay item<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="electronics" name="brand"><label for="electronics">Electronics<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="food" name="brand"><label for="food">Food<span> (3600)</span></label></li>
+                  </ul>
+                </form>
+              </li>
+            </ul>
+          </div>
+          <div class="sidebar-filter">
+            <div class="top-filter-head">Produits Filters</div>
+<!--             <div class="common-filter">
+              <div class="head">Brands</div>
+              <form action="#">
+                <ul>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">Apple<span>(29)</span></label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">Asus<span>(29)</span></label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">Gionee<span>(19)</span></label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="micromax" name="brand"><label for="micromax">Micromax<span>(19)</span></label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="samsung" name="brand"><label for="samsung">Samsung<span>(19)</span></label></li>
+                </ul>
+              </form>
+            </div> -->
+            <div class="common-filter">
+              <div class="head">Couleur</div>
+              <form action="#">
+                <ul>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="black" name="color"><label for="black">Noir<span>(29)</span></label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="balckleather" name="color"><label for="balckleather">Noir
+                      Pale<span>(29)</span></label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="blackred" name="color"><label for="blackred">Noir
+                      avec Rouge<span>(19)</span></label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="gold" name="color"><label for="gold">Or<span>(19)</span></label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="spacegrey" name="color"><label for="spacegrey">Bleu<span>(19)</span></label></li>
+                </ul>
+              </form>
+            </div>
+ 
+          </div>
+        </div>
+        <div class="col-xl-9 col-lg-8 col-md-7">
+          <!-- Start Filter Bar -->
+          <div class="filter-bar d-flex flex-wrap align-items-center">
+            
+              <div class="input-group filter-bar-search">
+                <input type="text" placeholder="Search">
+                <div class="input-group-append">
+                  <button type="button"><i class="ti-search"></i></button>
+                </div>
+              </div>
+          </div>
+          <!-- End Filter Bar -->
+          <!-- Start Best Seller -->
+          <section class="lattest-product-area pb-40 category-list">
+            <div class="row">
+            	{% for item in object_list %}
+              <div class="col-md-6 col-lg-4">
+                <div class="card text-center card-product">
+                  <div class="card-product__img">
+                    <img class="card-img" src="{{ item.image.url }}" alt="IMG-PRODUCT">
+                    <ul class="card-product__imgOverlay">
+                      <li style="color: blue">{{item.get_label_display}}</li>
+                    </ul>
+                  </div>
+                  <div class="card-body">
+                    <p>{{ item.get_category_display }}</p>
+                    <h4 class="card-product__title"><a href="{{item.get_absolute_url}}">{{item.title}}</a></h4>
+                    {% if item.discount_price %}
+                <p class="card-product__price" style="font-size: 14px;">$<del>{{ item.price }}</del></p>
+                <p class="card-product__price" style="color: red">${{ item.discount_price }}</p>
+                {% else %}
+                <p class="card-product__price" style="color: red">${{ item.price }}</p>
+                {% endif %}
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+
+          {% if is_paginated %}
+        <div class="pagination flex-m flex-w p-t-26">
+            <ul class="pagination">
+              {% if page_obj.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.previous_page_number}}">Précédent</a>
+                </li>
+                {% endif %}
+                <li class="page-item active">
+                  <span class="page-link">
+                    {{page_obj.number}}
+                    <span class="sr-only">(current)</span>
+                  </span>
+                </li>
+                 {% if page_obj.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.next_page_number}}">Suivant</a>
+                </li>
+              {% endif %}
+            </ul>
+         </div>
+          {% endif %}
+          </section>
+          <!-- End Best Seller -->
+        </div>
+      </div>
+    </div>
+  </section>
+	<!-- ================ category section end ================= -->		  
+
+{% if object_list %}
+	<!-- ================ top product area start ================= -->	
+	<section class="related-product-area">
+		<div class="container">
+			<div class="section-intro pb-60px">
+        <p>Produits Populaires</p>
+        <h2>Top <span class="section-intro__style">Produits</span></h2>
+      </div>
+			<div class="row mt-30">
+        
+        {% for product in object_list %}
+        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+          <div class="single-search-product-wrapper">
+
+            <div class="single-search-product d-flex">
+              <a href="{% url 'vendors:vendpro_detail' pk=product.pk %}"><img src="{{ product.image.url }}" alt=""></a>
+              <div class="desc">
+                  <a href="{% url 'vendors:vendpro_detail' pk=product.pk %}" class="title">{{ product.title }}</a>
+                  <div class="price">${{ product.price }}</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+         {% endfor %}
+
+      </div>
+		</div>
+	</section>
+	<!-- ================ top product area end ================= -->		
+  {% endif %}
+
+	<!-- ================ Subscribe section start ================= -->		  
+<section class="subscribe-position">
+      <div class="container">
+        <div class="subscribe text-center">
+          <h3 class="subscribe__title">Abornez-vous?</h3>
+          <p>Pour tout changement ou mis a jour sur le site..</p>
+          <div id="mc_embed_signup">
+            <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe-form form-inline mt-5 pt-1">
+              <div class="form-group ml-sm-auto">
+                <input class="form-control mb-1" type="email" name="email" placeholder="Votre Addresse Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Votre Addresse Email '" >
+                <div class="info"></div>
+              </div>
+              <button class="button button-subscribe mr-auto mb-1" type="submit">S'abornez dès maintenant</button>
+              <div style="position: absolute; left: -5000px;">
+                <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+              </div>
+
+            </form>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+	<!-- ================ Subscribe section end ================= -->		  
+
+
+
+    {% endblock content %}

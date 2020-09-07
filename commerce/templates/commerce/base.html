@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  {% include "commerce/header.html" %}
+
+  <title>{% block titled %}{% endblock titled %}</title>
+  {% block extra_head %} {% endblock %}
+
+
+<body class="animsition">
+{% include "commerce/nav.html"%}
+  {% if messages %} 
+<div id="content">
+<div class="mt-0">
+  {% for message in messages %}
+  <div
+    class="alert alert-{{ message.tags }} alert-dismissible fade show"
+    role="alert"
+  >
+    {{ message }}
+
+    <button
+      type="button"
+      class="close"
+      data-dismiss="alert"
+          aria-label="Close"
+        >
+      <span aria-hidden="true">&times;</span>
+    </button>
+      </div>
+          {% endfor %} 
+    </div>
+  </div>
+    {% endif %} 
+
+
+    {% block content %} 
+    {% endblock content %}
+
+     {% block extra_body %} 
+     {% endblock %} 
+
+    {% include "commerce/footer.html"%} 
+    {% include "commerce/script.html"%}
+
+    {% block extra_scripts %}
+    {% endblock extra_scripts %}
+  </body>
+</html>

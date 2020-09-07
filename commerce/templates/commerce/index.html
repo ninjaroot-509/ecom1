@@ -1,0 +1,216 @@
+{% extends 'commerce/base.html' %}
+{% block titled %}Lohimarket | Acceuil{% endblock titled %}
+{% load static %}
+
+{% block content %}
+  <main class="site-main">
+    
+    <!--================ Hero banner start =================-->
+    <section class="hero-banner">
+      <div class="container">
+        <div class="row no-gutters align-items-center pt-60px">
+          <div class="col-5 d-none d-sm-block">
+            <div class="hero-banner__img">
+              <img class="img-fluid" src="{% static 'commerce/img/home/hero-banner.png' %}" alt="">
+            </div>
+          </div>
+          <div class="col-sm-7 col-lg-6 offset-lg-1 pl-4 pl-md-5 pl-lg-0">
+            <div class="hero-banner__content">
+              <h4>La boutique est amusante</h4>
+              <h1>Parcourez nos produits Premium</h1>
+              <p>Nous qui, au fil des signes, divisons la domination profonde, apportent leur viande sur la terre sans matin au-dessus du troisième. Leur mâle sec. Ils sont grands apparaissent dont la terre vole l'herbe.</p>
+              <a class="button button-hero" href="{% url 'shop' %}">Parcourir maintenant</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--================ Hero banner start =================-->
+
+    <!--================ Hero Carousel start =================-->
+    <section class="section-margin mt-0">
+      <div class="owl-carousel owl-theme hero-carousel">
+        <div class="hero-carousel__slide">
+          <img src="{% static 'commerce/img/home/hero-slide1.png' %}" alt="" class="img-fluid">
+          <a href="#" class="hero-carousel__slideOverlay">
+            <h3>Wireless Headphone</h3>
+            <p>Accessories Item</p>
+          </a>
+        </div>
+        <div class="hero-carousel__slide">
+          <img src="{% static 'commerce/img/home/hero-slide2.png' %}" alt="" class="img-fluid">
+          <a href="#" class="hero-carousel__slideOverlay">
+            <h3>Wireless Headphone</h3>
+            <p>Accessories Item</p>
+          </a>
+        </div>
+        <div class="hero-carousel__slide">
+          <img src="{% static 'commerce/img/home/hero-slide3.png' %}" alt="" class="img-fluid">
+          <a href="#" class="hero-carousel__slideOverlay">
+            <h3>Wireless Headphone</h3>
+            <p>Accessories Item</p>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!--================ Hero Carousel end =================-->
+
+{% if items %}
+    <!-- ================ trending product section start ================= -->  
+    <section class="section-margin calc-60px">
+      <div class="container">
+        <div class="section-intro pb-60px">
+          <p>Article populaire sur le marché</p>
+          <h2>Produits <span class="section-intro__style">Tendance</span></h2>
+        </div>
+        <div class="row">
+          {% for item in items %}
+          <div class="col-md-6 col-lg-4 col-xl-3">
+            <div class="card text-center card-product">
+              <div class="card-product__img block2-label">
+                <a href="{{item.get_absolute_url}}"><img class="card-img" src="{{ item.image.url }}" alt="Produits"></a>
+                <ul class="card-product__imgOverlay">
+                  <li style="color: blue">{{item.get_label_display}}</li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <p>{{ item.get_category_display }}</p>
+                <h4 class="card-product__title"><a href="{{item.get_absolute_url}}">{{ item.title }}</a></h4>
+                {% if item.discount_price %}
+                <p class="card-product__price" style="font-size: 14px">$<del>{{ item.price }}</del></p>
+                <p class="card-product__price" style="color: red">${{ item.discount_price }}</p>
+                {% else %}
+                <p class="card-product__price" style="color: red">${{ item.price }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+         {% endfor %}
+        </div>
+      </div>
+    </section>
+    <!-- ================ trending product section end ================= -->  
+{% endif %}
+
+    <!-- ================ offer section start ================= --> 
+    <section class="offer" id="parallax-1" data-anchor-target="#parallax-1" data-300-top="background-position: 20px 30px" data-top-bottom="background-position: 0 20px">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-5">
+          	{% if request.user.is_authenticated %}
+          	<div class="offer__content text-center">
+              <h3>Merci d'avoir retrouvé</h3>
+              <h4>Lohimarket</h4>
+              <p>Voir plus de Produit sur le site</p>
+              <a class="button button--active mt-3 mt-xl-4" href="{% url 'shop' %}">Continuer..</a>
+            </div>
+          	{% else %}
+            <div class="offer__content text-center">
+              <h3>Il y a 30% de reduction</h3>
+              <h4>Sur Lohimarket</h4>
+              <p>Si, vous creez un compte!?</p>
+              <a class="button button--active mt-3 mt-xl-4" href="{% url 'signup' %}">S'inscrire maintenant</a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ================ offer section end ================= --> 
+{% if products %}
+    <!-- ================ Best Selling item  carousel ================= --> 
+    <section class="section-margin calc-60px">
+      <div class="container">
+        <div class="section-intro pb-60px">
+          <p>Article populaire sur le marché</p>
+          <h2>Produits en <span class="section-intro__style">ventes</span></h2>
+        </div>
+        {% for product in products %}
+        <div class="owl-carousel owl-theme" id="bestSellerCarousel">
+          <div class="card text-center card-product">
+            <div class="card-product__img">
+              <img class="img-fluid" src="{{ product.image.url }}" alt="">
+              <ul class="card-product__imgOverlay">
+                <li><a href="{% url 'vendors:vendpro_detail' pk=product.pk %}"><i class="ti-shopping-cart"></i></a></li>
+                <li><a href="{% url 'vendors:vendpro_detail' pk=product.pk %}"><i class="ti-heart"></i></a></li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <p>Accessories</p>
+              <h4 class="card-product__title"><a href="{% url 'vendors:vendpro_detail' pk=product.pk %}">{{ product.title }}</a></h4>
+              <p class="card-product__price">${{ product.price }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    <!-- ================ Best Selling item  carousel end ================= --> 
+    {% endif %}
+
+{% if posts %}
+    <!-- ================ Blog section start ================= -->  
+    <section class="blog">
+      <div class="container">
+        <div class="section-intro pb-60px">
+          <p>Actualités</p>
+          <h2>Infos <span class="section-intro__style">Recents</span></h2>
+        </div>
+
+        <div class="row">
+          {% for post in posts %}
+          <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+            <div class="card card-blog">
+              <div class="card-blog__img">
+                <img class="card-img rounded-0" src="{{ post.post_logo.url }}" alt="">
+              </div>
+              <div class="card-body">
+                <ul class="card-blog__info">
+                  <li><a href="#">{{ post.author }}</a></li>
+                  <li><a href="{{ post.get_absolute_url }}"><i class="ti-comments-smiley"></i> {{ post.comments.count }} Comment(s)</a></li>
+                </ul>
+                <h4 class="card-blog__title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
+                <p>{{ post.content|truncatewords:15|linebreaks }}</p>
+                <a class="card-blog__link" href="{{ post.get_absolute_url }}">Lire plus <i class="ti-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    <!-- ================ Blog section end ================= -->  
+  {% endif %}
+
+    <!-- ================ Subscribe section start ================= --> 
+    <section class="subscribe-position">
+      <div class="container">
+        <div class="subscribe text-center">
+          <h3 class="subscribe__title">Abornez-vous?</h3>
+          <p>Si Abornez, vous aurez des nouveaux notifications a chaque..</p>
+          <div id="mc_embed_signup">
+            <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe-form form-inline mt-5 pt-1">
+              <div class="form-group ml-sm-auto">
+                <input class="form-control mb-1" type="email" name="email" placeholder="Votre Addresse Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Votre Addresse Email '" >
+                <div class="info"></div>
+              </div>
+              <button class="button button-subscribe mr-auto mb-1" type="submit">S'abornez dès maintenant</button>
+              <div style="position: absolute; left: -5000px;">
+                <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+              </div>
+
+            </form>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+    <!-- ================ Subscribe section end ================= --> 
+
+    
+
+  </main>
+
+
+
+  {% endblock content %}

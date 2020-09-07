@@ -1,0 +1,57 @@
+{% load static %}
+
+{% load cart_template_tags %}
+
+  <!--================ Start Header Menu Area =================-->
+	<header class="header_area">
+    <div class="main_menu">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <a class="navbar-brand logo_h" href="/"><img src="{% static 'commerce/img/logo.png' %}" alt="" style="width: 200px"></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+            <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
+              <li {% if request.path == '/Clients/Acceuil/' %} class="nav-item active" {% else %} class="nav-item" {% endif %}><a class="nav-link" href="/">Acceuil</a></li>
+
+             <li {% if request.path == '/Shop/' %} class="nav-item active" {% else %} class="nav-item" {% endif %}><a class="nav-link" href="{% url 'shop' %}">Shop</a></li>
+             <li class="nav-item submenu dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                  aria-expanded="false">Produit(s)</a>
+                <ul class="dropdown-menu">
+                  <li class="nav-item"><a class="nav-link" href="{% url 'order' %}">Mes commandes</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'request-refund' %}">Remboursement</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'vendors:myprod' %}">Produit(s) listes</a></li>
+                  {% if user.is_vendor %}
+                  <li class="nav-item"><a class="nav-link" href="{% url 'vendors:add_product' %}">Ajouter produit(s)</a></li>
+                  {% endif %}
+                </ul>
+              </li>
+              <li {% if request.path == '/Blog/' %} class="nav-item active" {% else %} class="nav-item" {% endif %} ><a class="nav-link" href="{% url 'blog' %}">Blog</a></li>
+              <li {% if request.path == '/Contact/' %} class="nav-item active" {% else %} class="nav-item" {% endif %}><a class="nav-link" href="{% url 'contact' %}">contact</a></li>
+              <li {% if request.path == '/About/' %} class="nav-item active" {% else %} class="nav-item" {% endif %}><a class="nav-link" href="{% url 'about' %}">About</a></li>
+            </ul>
+            <ul class="nav-shop">
+              <li class="nav-item"><button><i class="ti-search"></i></button></li>
+              <li class="nav-item"><button><a href="{% url 'order-summary' %}">
+                <i class="ti-shopping-cart" {% if request.path == '/order-summary/' %} style="color: blue" {% endif %}></i><span class="nav-shop__circle">{{ request.user|cart_item_count }}</span></a></button></li>
+            {% if request.user.is_authenticated %}
+              <li><a class="button button-header" href="{% url 'profile' %}">Profile</a></li>
+            {% else %}
+            <li 
+              {% if request.path == 'accounts/Login/' %} class="nav-item active" {% endif %}
+              {% if request.path == 'accounts/signup/' %} class="nav-item active" {% endif %}
+              ><a class="button button-header" href="{% url 'login' %}">S'identifier / S'enregistrer</a></li>
+            {% endif %}
+            </ul>
+
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+	<!--================ End Header Menu Area =================-->

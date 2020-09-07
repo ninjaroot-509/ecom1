@@ -1,0 +1,126 @@
+{% extends 'commerce/base.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %}
+
+{% block titled %}Lohimarket | Formulaire de commande{% endblock titled %}
+
+{% block content %}
+
+  <!-- ================ start banner area ================= --> 
+  <section class="blog-banner-area" id="category">
+    <div class="container h-100">
+      <div class="blog-banner">
+        <div class="text-center">
+          <h1>Lohimarket | Produit Payment</h1>
+          <nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Acceuil</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Payment</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ================ end banner area ================= -->
+  
+  
+  <!--================Checkout Area =================-->
+  <section class="checkout_area section-margin--small">
+    <div class="container">
+        <div class="returning_customer">
+            <p>Si vous avez déjà fait des achats chez nous, veuillez saisir vos coordonnées dans les cases ci-dessous. Si vous êtes un nouveau client, veuillez passer à la section Facturation et expédition.</p>
+        </div>
+        {% if DISPLAY_COUPON_FORM %}
+        <div class="cupon_area">
+            <div class="check_title">
+                <h2>Avez-vous un coupon? <a href="#"> Cliquez ici pour entrer votre code</a></h2>
+            </div>
+            <form  method="POST" action="{% url 'add-coupon' %}">
+              {% csrf_token %}
+             {{ couponform.code }}
+            <button class="button button-coupon" type="submit">Appliquer Coupon</button>
+          </form>
+        </div>
+        {% endif %}
+        <div class="billing_details">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h3>Adresse de facturation</h3>
+                    <form class="row contact_form" action="." method="post" novalidate="novalidate">
+                      {% csrf_token %}
+                        <div class="col-md-6 form-group p_star">
+                          <label for="address">Quartier</label>
+                            {{ form.street_address }}
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                          <label for="address">Apartement</label>
+                            {{ form.apartment_address }}
+                        </div>
+                        <div class="col-md-12 form-group p_star">
+                          <label for="address">Pays</label><br>
+                            {{ form.country }}
+                            <div class="invalid-feedback">
+                             Veuillez sélectionner un pays valide.
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group p_star">
+                          <label for="address">Ville</label>
+                            {{ form.ville }}
+                            <div class="invalid-feedback">
+                             Veuillez fournir un état valide.
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label for="address">Zip</label>
+                            {{ form.zip }}
+                            <div class="invalid-feedback">
+                              Zip code required.
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group mb-0">
+                            <div class="creat_account">
+                                <h3>Les détails d'expédition</h3>
+                            </div>
+                            <textarea class="form-control" name="message" id="id_message" rows="1" placeholder="Notés quelque informations sur votre emplacement..."></textarea>
+                        </div>
+                        <hr>
+                          <div class="col-md-6 form-group" style="padding-top: 17px">
+                            <input {% if form.same_shipping_address.value %}checked{% endif %} type="checkbox" class="custom-control-input" id="same_shipping_address">
+                            
+                            <label class="custom-control-label" for="same_shipping_address">L'adresse de livraison est la même que mon adresse de facturation</label>
+                          </div>
+                          <div class="col-md-6 form-group" style="padding-top: 17px">
+                            <input {% if form.save_info.value %}checked{% endif %} type="checkbox" class="custom-control-input" id="save-info">
+                            
+                            <label class="custom-control-label" for="save-info">Enregistrez ces informations pour la prochaine fois</label>
+                          </div>
+                          <hr>
+                        <div class="col-md-12 form-group">
+                          <div class="creat_account">
+                                <h3>Payment</h3>
+                            </div>
+                          {% for value, name in form.fields.payment_option.choices %}
+                          <div class="custom-control custom-radio">
+                            <input id="{{ name }}" name="payment_option" value="{{ value }}" type="radio" class="custom-control-input"  required>
+                            <label class="custom-control-label" for="{{name}}">{{ name }}</label>
+                          </div>
+                          {% endfor %}
+                      </div>
+
+                        <div class="col-md-12 form-group" style="padding-top: 15px">
+                        <div class="text-center">
+                          <button class="button button-paypal" type="submit">Continue</button>
+                        </div>
+                      </div>
+                    </form>
+                </div>
+               {% include "commerce/order_snippet.html" %}
+            </div>
+        </div>
+    </div>
+  </section>
+  <!--================End Checkout Area =================-->
+
+
+{% endblock content %}

@@ -1,0 +1,55 @@
+{% extends 'commerce/base.html' %}
+{% block titled %}Payment{% endblock titled %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+    <!-- ================ start banner area ================= -->   
+    <section class="blog-banner-area" id="category">
+        <div class="container h-100">
+            <div class="blog-banner">
+                <div class="text-center">
+                    <h1>Payment</h1>
+                    <nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{% url 'checkout' %}">Panier</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Payment</li>
+            </ol>
+          </nav>
+                </div>
+            </div>
+    </div>
+    </section>
+    <!-- ================ end banner area ================= -->
+  
+  <!--================Login Box Area =================-->
+    <section class="login_box_area section-margin">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="login_box_img">
+                        <div class="hover">
+                            <!-- <h4>Nouveau sur notre site Web?</h4> -->
+                            <p>Des progrès sont réalisés chaque jour dans le domaine de la science et de la technologie.</p>
+                            <!-- <a class="button button-account" href="{% url 'signup' %}">Creer un compte</a> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="login_form_inner">
+                        <h3>Choisissez votre moyen de payment</h3>
+                    <form action="{{ paypal_url }}" method="post">
+                    <input type="hidden" name="amount" value="{{ oder.price }}">
+                    <input type="hidden" name="item_name" value="{{ order.name }}">
+                    <input type="hidden" name="return" value="{{ paypal_return_url }}/purchased/{{ user.id }}/{{ order.id }}/">
+                    </form>
+                        {{ form.render }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Login Box Area =================-->
+  {% endblock content %}

@@ -1,0 +1,184 @@
+{% extends 'commerce/vendors/base_ven.html' %}
+{% block titled %}Lohimarket | Profile-update{% endblock titled %}
+{% load static %}
+
+{% block content %}
+
+
+<body class="">
+
+  <div class="main-content">
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url({{ user.profile.photo.url }}); background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+          <div class="col-lg-7 col-md-10">
+            <h1 class="display-2 text-white">Hello {{user.username}}</h1>
+            <p class="text-white mt-0 mb-5">{{user.profile.bio}}</p>
+            {% if user.is_vendor %}
+            <a href="{% url 'vendors:add_product' %}" class="btn btn-info">Add produits</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--7">
+      <div class="row">
+        <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+          <div class="card card-profile shadow">
+            <div class="row justify-content-center">
+              <div class="col-lg-3 order-lg-2">
+                <div class="card-profile-image">
+                  <a href="#">
+                    <img src="{{ user.profile.photo.url }}" class="rounded-circle">
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+              <div class="d-flex justify-content-between">
+                <a href="#" class="btn btn-sm btn-info mr-4">On_line</a>
+                <a href="#" class="btn btn-sm btn-default float-right">Message(0)</a>
+              </div>
+            </div>
+            <div class="card-body pt-0 pt-md-4">
+              <div class="row">
+                <div class="col">
+                  <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <h3>
+                  {{user.username}}<span class="font-weight-light"><br> {{user.last_name}}</span>
+                </h3>
+                <hr class="my-4" />
+                <p>{{user.profile.bio|truncatewords:12|linebreaks}}</p>
+                <hr>
+                <a href="{% url 'shop' %}">Aller au Shop</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-8 order-xl-1">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">Mon Compte</h3>
+                </div>
+               
+              </div>
+            </div>
+            <div class="card-body">
+              <form action="." method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+                <h6 class="heading-small text-muted mb-4">Client information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="username">Pseudo</label>
+                        <input type="text" id="id_username" name="username" class="form-control form-control-alternative" placeholder="{{user.username}}" value="{{user.username}}">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="email">Addresse Email</label>
+                        <input type="email" id="id_email" name="email" class="form-control form-control-alternative" placeholder="info@example.com" value="{{user.email}}">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="first_name">Nom</label>
+                        <input type="text" id="id_first_name" name="first_name" class="form-control form-control-alternative" placeholder="Nom" value="{{user.first_name}}">
+                      </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="last_name">Prenom</label>
+                        <input type="text" id="id_last_name" name="last_name" class="form-control form-control-alternative" placeholder="Prenom" value="{{user.last_name}}">
+                      </div>
+                    </div>
+                  </div>
+                    <div class="row">
+                       <div class="col-lg-6">
+                          <div class="form-group">
+                            <label class="form-control-label" for="numero">Numero</label>
+                            <input type="text" id="id_phone" name="phone" class="form-control form-control-alternative" placeholder="Numero" value="{{ user.profile.phone }}">
+                          </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <label class="form-control-label" for="whatsapp">Lien de votre Compte Whatsapp</label>
+                            <input type="text" id="id_whatsapp" name="whatsapp" class="form-control form-control-alternative" placeholder="example:https://www.whatsapp.com/stanley.me" value="{{user.profile.whatsapp}}">
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-lg-6">
+                          <div class="form-group">
+                            <label class="form-control-label" for="facebook">Lien de votre Compte Facebook</label>
+                            <input type="text" id="id_facebook" name="facebook" class="form-control form-control-alternative" placeholder="example:https://web.facebook.com/stanley.me" value="{{ user.profile.facebook }}">
+                          </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <label class="form-control-label" for="github">Lien de votre Compte Github</label>
+                            <input type="text" id="id_github" name="github" class="form-control form-control-alternative" placeholder="example:https://www.github.com/stanley.me" value="{{user.profile.github}}">
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="col-lg-6">
+                          <div class="form-group">
+                            <label class="form-control-label" for="linkedin">Lien de votre Compte Linkedin</label>
+                            <input type="text" id="id_linkedin" name="linkedin" class="form-control form-control-alternative" placeholder="example:https://www.linkedin.com/stanley.me" value="{{ user.profile.linkedin }}">
+                          </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <label class="form-control-label" for="instagram">Lien de votre Compte Instagram</label>
+                            <input type="text" id="id_instagram" name="instagram" class="form-control form-control-alternative" placeholder="example:https://www.instagram.com/stanley.me" value="{{user.profile.instagram}}">
+                          </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <label class="form-control-label" for="Photo">Photo</label>
+                            <input type="file" id="id_photo" name="photo" class="form-control form-control-alternative">
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-4" />
+                <!-- Description -->
+                <h6 class="heading-small text-muted mb-4">Client Bio..</h6>
+                <div class="pl-lg-4">
+                  <div class="form-group">
+                    <label>About Me</label>
+                    <textarea rows="4" class="form-control form-control-alternative" id="id_bio" name="bio" placeholder="{{user.profile.bio}}" value="{{user.profile.bio}}">{{user.profile.bio}}</textarea>
+                  </div>
+                   <div class="col-4 text-right">
+                  <button type="submit" class="btn btn-sm btn-primary">Saves</button>
+                </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}

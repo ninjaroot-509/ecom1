@@ -1,0 +1,88 @@
+
+
+
+{% extends 'commerce/vendors/base_ven.html' %}
+{% load crispy_forms_tags %}
+
+{% block titled %}Lohimarket | Confirmation_de_supression{% endblock titled %}
+{% load static %}
+
+{% block content %}
+
+
+<body class="">
+
+  <div class="main-content">
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url({{ user.profile.photo.url }}); background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+          <div class="col-lg-7 col-md-10">
+            <h1 class="display-2 text-white">Hello {{user.username}}</h1>
+            <!-- <p class="text-white mt-0 mb-5">{{user.profile.bio}}</p> -->
+            <a href="{% url 'vendors:myprod' %}" class="btn btn-info">Voir mes produits</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--7">
+      <div class="row">
+        <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+          <div class="card card-profile shadow">
+            <div class="row justify-content-center">
+              <div class="col-lg-3 order-lg-2">
+                <div class="card-profile-image">
+                  <a href="#">
+                    <img src="{{ user.profile.photo.url }}" class="rounded-circle">
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+              <div class="d-flex justify-content-between">
+                <a href="#" class="btn btn-sm btn-info mr-4">On_line</a>
+                <a href="#" class="btn btn-sm btn-default float-right">Message(0)</a>
+              </div>
+            </div>
+            <div class="card-body pt-0 pt-md-4">
+              <div class="row">
+                <div class="col">
+                  <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <h3>
+                  {{user.username}}<span class="font-weight-light"><br> {{user.last_name}}</span>
+                </h3>
+                <hr class="my-4" />
+                <p>{{user.profile.bio|truncatewords:12|linebreaks}}</p>
+                <a href="{% url 'profile-update' %}">Editer</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-8 order-xl-1">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">Supression d'un Produit</h3>
+                </div>
+               
+              </div>
+            </div>
+            <div class="card-body">
+	       <form action="" method="post">{% csrf_token %}
+			    <p>Are you sure you want to delete "{{ object }}"?</p>
+			    <button type="submit" class="btn btn-info" style="color: red">Confirmer</button>
+			</form>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock content %}
+
